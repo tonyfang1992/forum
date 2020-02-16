@@ -10,7 +10,7 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv'.config())
+  require('dotenv').config()
 }
 
 app.use('/upload', express.static(__dirname + '/upload'))
