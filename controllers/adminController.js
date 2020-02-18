@@ -4,10 +4,11 @@ const User = db.User
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+const Category = db.Category
 const adminController = {
   getRestaurants: (req, res) => {
-    return Restaurant.findAll().then(restaurants => {
-
+    return Restaurant.findAll({ include: [Category] }).then(restaurants => {
+      // console.log(restaurants)
       return res.render('admin/restaurants', { restaurants: JSON.parse(JSON.stringify(restaurants)) })
     })
   },
@@ -52,7 +53,7 @@ const adminController = {
     }
   },
   getRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id).then(restaurant => {
+    return Restaurant.findByPk(req.params.id, { include: [Category] }).then(restaurant => {
       return res.render('admin/restaurant', {
         restaurant: JSON.parse(JSON.stringify(restaurant))
       })
