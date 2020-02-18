@@ -20,7 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-app.engine('handlebars', handlebars({ defaultlayout: 'main' }))
+app.engine('handlebars', handlebars({
+  defaultlayout: 'main',
+  helpers: require('./config/handlebars-helpers')
+}))
 app.set('view engine', 'handlebars')
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
