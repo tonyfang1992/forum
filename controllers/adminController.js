@@ -67,6 +67,7 @@ const adminController = {
   },
   editRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id).then(restaurant => {
+      console.log(restaurant)
       Category.findAll().then(categories => {
         return res.render('admin/create', {
           categories: JSON.parse(JSON.stringify(categories)),
