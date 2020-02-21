@@ -27,11 +27,11 @@ let restController = {
         description: r.dataValues.description.substring(0, 50)
       }))
 
-      Category.findAll().then(categories => {
+      Category.findAll({ nest: true, raw: true }).then(categories => {
         return res.render('restaurants', {
-          restaurants: JSON.parse(JSON.stringify(data)),
-          categories: JSON.parse(JSON.stringify(categories)),
-          categoryId: JSON.parse(JSON.stringify(categoryId)),
+          restaurants: data,
+          categories: categories,
+          categoryId: categoryId,
           page: page,
           totalPage: totalPage,
           prev: prev,
