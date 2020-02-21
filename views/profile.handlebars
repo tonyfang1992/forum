@@ -8,6 +8,7 @@
       <ul class="list-unstyled">
         <li class="my-2"><strong>{{user.name}}</strong></li>
         <li>{{user.email}}</li>
+        <li>{{comments}} 已評論餐廳</li>
       </ul>
       <a href="/users/{{user.id}}/edit">編輯</a>
     </div>
@@ -17,3 +18,13 @@
 
 <br />
 <br />
+
+<div class="card">
+  <h5 class="card-header">{{comments}} 已評論餐廳</h5>
+  <div class="card-body">
+    {{#each user.Comments}}
+    <a href="/admin/restaurants/{{this.Restaurant.id}}"><img src="{{this.Restaurant.image}}" width="40px"
+        height="40px"></a>
+    {{/each}}
+  </div>
+</div>
