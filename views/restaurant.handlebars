@@ -15,18 +15,28 @@
   </div>
   <div class="col-md-8">
     <p>{{restaurant.description}}</p>
-    <button type="button" class="btn btn-link">
-      <a href="/restaurants/{{restaurant.id}}/dashboard">
-        Dashboard
-      </a>
-    </button>
-    {{#if isFavorited }}
-    <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST" style="display: contents;"><button
-        type="submit" class="btn btn-danger">移除最愛</button></form>
-    {{else}}
-    <form action="/favorite/{{restaurant.id}}" method="POST" style="display: contents;"><button type="submit"
-        class="btn btn-primary">加到最愛</button></form>
-    {{/if}}
+    <div class="row">
+      <button type="button" class="btn btn-link  d-inline-block">
+        <a href="/restaurants/{{restaurant.id}}/dashboard">
+          Dashboard
+        </a>
+      </button>
+      {{#if isFavorited }}
+      <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST" style="display: contents;"><button
+          type="submit" class="btn btn-danger  d-inline-block">移除最愛</button></form>
+      {{else}}
+      <form action="/favorite/{{restaurant.id}}" method="POST" style="display: contents;"><button type="submit"
+          class="btn btn-primary  d-inline-block">加到最愛</button></form>
+      {{/if}}
+      {{#if this.isLike }}
+      <form action="/like/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit"
+          class="btn btn-danger d-inline-block">unLike</button></form>
+      {{else}}
+      <form action="/like/{{restaurant.id}}" method="POST"><button type="submit"
+          class="btn btn-primary d-inline-block">Like</button>
+      </form>
+      {{/if}}
+    </div>
   </div>
   <hr>
 </div>
