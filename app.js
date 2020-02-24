@@ -35,4 +35,4 @@ app.listen(port, () => {
   console.log(`this app is running on port: ${port}`)
 })
 
-require('./routes')(app, passport)
+require('./routes')(app)
