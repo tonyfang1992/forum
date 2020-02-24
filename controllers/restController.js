@@ -91,6 +91,29 @@ let restController = {
     }).then(restaurant => {
       return res.render('dashboard', { restaurant: JSON.parse(JSON.stringify(restaurant)) })
     })
+  },
+  getTopRestaurants: (req, res) => {
+    // 撈出所有 User 與 followers 資料
+    return Restaurant.findAll({
+      include: [
+        { model: User, as: 'FavoritedUsers' }
+      ]
+    }).then(restaurants => {
+
+      // console.log(restaurants[0])
+      // 整理 restaurants 資料
+      restaurants = restaurants.map(restaurant => ({
+        ...restaurant.dataValues,
+        //縮短
+        description: restaurant.dataValues.description.substring(0, 50),
+        // 計算收藏為最愛人數
+        FavoriteCount: restaurant.FavoritedUsers.length,
+        isFavorited: req.user.FavoritedRestaurants.map(d => d.id).includes(restaurant.id)
+      }))
+      // 依收藏為最愛人數排序清單
+      restaurants = restaurants.sort((a, b) => b.FavoriteCount - a.FavoriteCount).slice(0, 10)
+      return res.render('topRestaurants', { restaurants: JSON.parse(JSON.stringify(restaurants)) })
+    })
   }
 }
 module.exports = restController
